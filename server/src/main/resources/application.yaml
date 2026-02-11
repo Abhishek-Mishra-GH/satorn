@@ -1,0 +1,163 @@
+spring:
+  application:
+    name: satorn
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  
+  # DataSource Configuration
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/satorn}
+    username: ${SPRING_DATASOURCE_USERNAME:satorn_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:satorn_password}
+    driver-class-name: org.postgresql.Driver
+  
+  # Flyway Configuration
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+  
+  # Jackson Configuration
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+  
+  # Security
+  security:
+    user:
+      name: admin
+      password: admin
+    allowed-origins: http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000
+  
+  # Cache Configuration (Redis)
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000  # Default 10 minutes
+      use-key-prefix: true
+      key-prefix: 'satorn:'
+  
+  # Redis Connection
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: ${REDIS_TIMEOUT:10s}
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+  
+  # Task Scheduling Configuration
+  task:
+    scheduling:
+      pool:
+        size: 2
+      thread-name-prefix: satorn-scheduler-
+      shutdown:
+        await-termination: true
+        await-termination-period: 30s
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:your-super-secret-jwt-key-change-this-in-production-environment}
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.satorn: DEBUG
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+management:
+  health:
+    redis:
+      enabled: ${MANAGEMENT_HEALTH_REDIS_ENABLED:false}
+
+# AI Configuration
+spring.ai:
+  openai:
+    api-key: ${OPENAI_API_KEY}
+    chat:
+      options:
+        model: gpt-4
+        temperature: 0.7
+
+  vectorstore:
+    pgvector:
+      initialize-schema: true
+      index-type: HNSW
+      distance-type: COSINE_DISTANCE
+      dimensions: 1536
+
+# Groq Configuration (uses OpenAI-compatible API)
+# Endpoint: https://api.groq.com/openai/v1
+# Supported models: mixtral-8x7b-32768, llama-3-70b-versatile, etc.
+groq:
+  api-key: ${GROQ_API_KEY}
+  model: llama-3.3-70b-versatile
+
+# Ollama Configuration (OpenAI-compatible API)
+# Endpoint should be your Ollama host; Spring AI appends /v1/chat/completions
+ollama:
+  enabled: false
+  base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+  model: ${OLLAMA_MODEL:llama3.1:70b}
+  api-key: ${OLLAMA_API_KEY:ollama}
+
+# Tavily Search API
+tavily:
+  api-key: ${TAVILY_API_KEY}
+  base-url: https://api.tavily.com
+
+# RSS Feed Monitoring Configuration
+rss:
+  monitoring:
+    auto-run-enabled: ${RSS_MONITORING_AUTO_RUN_ENABLED:false}
+    bootstrap-schema: true
+    interval: 300000  # 5 minutes (in milliseconds)
+    initial-delay: 60000  # 1 minute (in milliseconds)
+    processor-interval: 20000  # 20 seconds queue drain loop
+    processor-initial-delay: 90000  # start queue drain 90s after boot
+    intake-max-items-per-feed: 150
+    enqueue-limit-per-feed: 15
+    queue-capacity: 500
+    process-batch-size: 3
+    max-retries: 4
+    retry-base-delay-ms: 15000
+    failed-url-cooldown-minutes: 360
+    min-content-length: 250
+    min-rss-summary-length: ${RSS_MONITORING_MIN_RSS_SUMMARY_LENGTH:80}
+    max-claims-per-article: 4
+    manual-run-max-articles: 100
+
+network:
+  bypass-system-proxy: ${NETWORK_BYPASS_SYSTEM_PROXY:true}
+
+ai:
+  claim-extraction:
+    max-input-chars: ${AI_CLAIM_EXTRACTION_MAX_INPUT_CHARS:6000}
+    timeout-seconds: ${AI_CLAIM_EXTRACTION_TIMEOUT_SECONDS:90}
