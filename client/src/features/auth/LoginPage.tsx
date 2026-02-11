@@ -25,7 +25,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
 
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<LoginFormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -44,10 +44,7 @@ export const LoginPage = () => {
     }
   };
 
-  const fillAdmin = () => {
-      setValue('username', 'admin');
-      setValue('password', 'password');
-  }
+
 
   return (
     <Card>

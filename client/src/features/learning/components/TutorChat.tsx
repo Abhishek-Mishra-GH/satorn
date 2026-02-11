@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { educationService } from '@/features/learning/services/learningService';
-import { TutorResponse } from '@/features/learning/types';
+
 import { Loader2, Send, Bot, User } from 'lucide-react';
 import { cn } from '@/shared/utils/cn';
 

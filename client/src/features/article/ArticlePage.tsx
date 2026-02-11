@@ -186,7 +186,7 @@ export const ArticlePage = () => {
     return { narrative: content, timeline: [], keyFindings: [] };
   };
 
-  const { narrative: cleanNarrative, timeline: fallbackTimeline, keyFindings: fallbackFindings } = parseContent(article.synthesizedNarrative);
+  const { narrative: cleanNarrative, timeline: fallbackTimeline } = parseContent(article.synthesizedNarrative);
 
   // Use parsed data if top-level fields are empty
   const timelineEvents = (article.timelineEvents && article.timelineEvents.length > 0) 
