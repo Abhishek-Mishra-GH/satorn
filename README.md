@@ -162,7 +162,7 @@ This gives both freshness and resilience.
                  +-----------------------------+
 ```
 
-## Technology Stack (Complete)
+## Technology Stack 
 
 ## Backend Core
 
@@ -222,7 +222,7 @@ This gives both freshness and resilience.
 - Spring Boot Test (`spring-boot-starter-test`)
 - Spring Security Test (`spring-security-test`)
 
-## Frontend (supporting stack, minimal)
+## Frontend
 
 - React 19 + Vite + TypeScript
 - React Router DOM
