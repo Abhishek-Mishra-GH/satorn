@@ -101,11 +101,6 @@ npm run dev
 - Deployed OpenAPI: `https://satorn-server-production-bae1.up.railway.app/v3/api-docs`
 - Frontend (Vite): typically `http://localhost:5173`
 
-## Demo Credentials
-
-Seeded in backend data seeder:
-- Username: `admin`
-- Password: `12345678`
 
 ## What Makes SATORN Different
 
