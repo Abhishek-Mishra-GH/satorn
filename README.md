@@ -22,6 +22,17 @@ SATORN solves this by combining:
 
 In short: SATORN is a verified current affairs learning engine, not just a news app.
 
+## API Documentation
+
+Swagger is intentionally exposed so judges can inspect and test all routes directly.
+
+- Swagger UI:
+  - `http://localhost:8080/swagger-ui/index.html`
+  - `https://satorn-server-production-bae1.up.railway.app/swagger-ui/index.html`
+- OpenAPI JSON:
+  - `http://localhost:8080/v3/api-docs`
+  - `https://satorn-server-production-bae1.up.railway.app/v3/api-docs`
+
 ## Installation and Setup
 
 This section is kept early for judges to run and evaluate quickly.
@@ -288,17 +299,6 @@ Primary services:
 Purpose:
 - explain current developments in exam-relevant format
 - provide next actions and learning continuity
-
-## API Documentation (Swagger is Mandatory)
-
-Swagger is intentionally exposed so judges can inspect and test all routes directly.
-
-- Swagger UI:
-  - `http://localhost:8080/swagger-ui/index.html`
-  - `https://satorn-server-production-bae1.up.railway.app/swagger-ui/index.html`
-- OpenAPI JSON:
-  - `http://localhost:8080/v3/api-docs`
-  - `https://satorn-server-production-bae1.up.railway.app/v3/api-docs`
 
 ## Key API Groups
 
