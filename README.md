@@ -1,4 +1,4 @@
-# SATORN: AI-Powered Current Affairs Learning Platform
+# SATORN: AI-Powered News Verification And Current Affairs Learning Platform
 
 **Hackathon Theme:** AI-Powered Online Education
 
