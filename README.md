@@ -7,6 +7,18 @@ It converts live current affairs into structured learning through verification, 
 
 **[Live Link](https://satorn-psi.vercel.app)** | **[Demo Video](https://youtu.be/t_4WkHUcttk?si=O59apPMBnpczeQKm)**
 
+## API Documentation
+
+Swagger is intentionally exposed so judges can inspect and test all routes directly.
+
+- Swagger UI:
+  - `http://localhost:8080/swagger-ui/index.html`
+  - `https://satorn-server-production-bae1.up.railway.app/swagger-ui/index.html`
+- OpenAPI JSON:
+  - `http://localhost:8080/v3/api-docs`
+  - `https://satorn-server-production-bae1.up.railway.app/v3/api-docs`
+
+
 ## Introduction
 
 Most aspirants lose time in three places:
@@ -21,17 +33,6 @@ SATORN solves this by combining:
 - tutor + adaptive quiz + skill tracking
 
 In short: SATORN is a verified current affairs learning engine, not just a news app.
-
-## API Documentation
-
-Swagger is intentionally exposed so judges can inspect and test all routes directly.
-
-- Swagger UI:
-  - `http://localhost:8080/swagger-ui/index.html`
-  - `https://satorn-server-production-bae1.up.railway.app/swagger-ui/index.html`
-- OpenAPI JSON:
-  - `http://localhost:8080/v3/api-docs`
-  - `https://satorn-server-production-bae1.up.railway.app/v3/api-docs`
 
 ## Installation and Setup
 
