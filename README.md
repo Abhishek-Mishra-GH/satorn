@@ -5,7 +5,7 @@
 SATORN is a hackathon project focused on online education for competitive exam aspirants.
 It converts live current affairs into structured learning through verification, tutoring, and adaptive quizzes.
 
-**[Live Link](https://satorn-psi.vercel.app)** | **[Demo Video](https://youtu.be/t_4WkHUcttk?si=O59apPMBnpczeQKm)**
+**[Live Link](https://satorn-psi.vercel.app)**
 
 ## API Documentation
 
