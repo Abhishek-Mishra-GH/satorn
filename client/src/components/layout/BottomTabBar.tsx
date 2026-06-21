@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Bookmark, ShieldAlert, LayoutDashboard, School } from 'lucide-react';
+import { Home, Bookmark, ShieldAlert, LayoutDashboard } from 'lucide-react';
 import { useAuthStore } from '@/shared/store/authStore';
 import { cn } from '@/shared/utils/cn';
 
@@ -9,12 +9,13 @@ export const BottomTabBar = () => {
   const isAdmin = user?.roles?.includes('ROLE_ADMIN');
 
   const tabs = [
-    {
-      label: 'Learning',
-      icon: School,
-      path: '/learning',
-      show: true,
-    },
+    // Temporarily hidden while SATORN focuses on real-time verified news.
+    // {
+    //   label: 'Learning',
+    //   icon: School,
+    //   path: '/learning',
+    //   show: true,
+    // },
     {
       label: 'Feed',
       icon: Home,

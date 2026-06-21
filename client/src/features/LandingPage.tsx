@@ -1,347 +1,370 @@
 import { Link } from 'react-router-dom';
+import type { ComponentPropsWithoutRef } from 'react';
 import {
-  BrainCircuit, GraduationCap, TrendingUp, ArrowRight, Sparkles,
-  ShieldCheck, Zap, BookOpen, BarChart3, Target, ChevronRight, Trophy
+  Activity,
+  ArrowRight,
+  CheckCircle2,
+  ChevronRight,
+  Clock3,
+  DatabaseZap,
+  FileSearch,
+  Globe2,
+  Radio,
+  SearchCheck,
+  ShieldCheck,
+  Signal,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/shared/store/authStore';
-import { motion } from 'framer-motion';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.12, duration: 0.55, ease: 'easeOut' as const },
-  }),
+type MotionExtras = {
+  initial?: unknown;
+  animate?: unknown;
+  whileInView?: unknown;
+  viewport?: unknown;
+  custom?: unknown;
+  variants?: unknown;
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' as const },
-  }),
+const stripMotionProps = <T extends MotionExtras>(props: T) => {
+  const { initial, animate, whileInView, viewport, custom, variants, ...rest } = props;
+  void initial;
+  void animate;
+  void whileInView;
+  void viewport;
+  void custom;
+  void variants;
+  return rest;
 };
+
+const MotionDiv = (props: ComponentPropsWithoutRef<'div'> & MotionExtras) => <div {...stripMotionProps(props)} />;
+const MotionH1 = (props: ComponentPropsWithoutRef<'h1'> & MotionExtras) => <h1 {...stripMotionProps(props)} />;
+const MotionH2 = (props: ComponentPropsWithoutRef<'h2'> & MotionExtras) => <h2 {...stripMotionProps(props)} />;
+const MotionP = (props: ComponentPropsWithoutRef<'p'> & MotionExtras) => <p {...stripMotionProps(props)} />;
+
+const liveSignals = [
+  { label: 'Cross-source match', value: '8 sources', tone: 'text-emerald-600' },
+  { label: 'Claim confidence', value: 'Verified', tone: 'text-primary' },
+  { label: 'Last checked', value: '18 sec ago', tone: 'text-cyan-700' },
+];
+
+const verificationSteps = [
+  {
+    icon: Radio,
+    title: 'Capture the live signal',
+    desc: 'SATORN continuously watches trusted news streams, RSS feeds, and emerging reports as stories break.',
+  },
+  {
+    icon: SearchCheck,
+    title: 'Triangulate every claim',
+    desc: 'Facts are compared across publishers, official sources, timelines, entities, and language patterns.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Publish with proof',
+    desc: 'Readers see verification status, confidence, source trail, and why a story was cleared or challenged.',
+  },
+];
+
+const trustPoints = [
+  {
+    icon: Globe2,
+    title: 'Real-time coverage',
+    desc: 'A fast news feed built for breaking updates, not a delayed study queue.',
+  },
+  {
+    icon: FileSearch,
+    title: 'Traceable evidence',
+    desc: 'Each article carries source context, claim checks, and provenance markers.',
+  },
+  {
+    icon: DatabaseZap,
+    title: 'Automated verification',
+    desc: 'AI checks factual consistency the moment new reports arrive.',
+  },
+  {
+    icon: Clock3,
+    title: 'Freshness signals',
+    desc: 'Clear timestamps show when a story was found, checked, and refreshed.',
+  },
+];
 
 export const LandingPage = () => {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <div className="flex flex-col overflow-hidden">
-
-      {/* ═══════ HERO ═══════ */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-blue-50 -z-20" />
-        <div className="absolute top-[-5%] right-[-5%] w-[500px] h-[500px] bg-primary/8 rounded-full blur-[100px] -z-10 animate-pulse" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-200/40 rounded-full blur-[120px] -z-10" />
-        <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[80px] -z-10" />
-
-        {/* Floating decorative dots */}
-        <div className="absolute top-24 left-[15%] w-2 h-2 rounded-full bg-primary/30 animate-bounce" style={{ animationDelay: '0.5s' }} />
-        <div className="absolute top-40 right-[20%] w-3 h-3 rounded-full bg-blue-300/40 animate-bounce" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-32 left-[25%] w-2.5 h-2.5 rounded-full bg-primary/20 animate-bounce" style={{ animationDelay: '1.5s' }} />
-
-        <div className="flex flex-col items-center justify-center gap-8 px-4 py-20 text-center max-w-5xl mx-auto">
-          <motion.div
-            initial="hidden" animate="visible" custom={0} variants={fadeUp}
-            className="flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 backdrop-blur-sm px-5 py-2.5 text-sm font-medium text-blue-700 shadow-sm"
-          >
-            <Sparkles className="h-4 w-4 text-primary" />
-            AI-Powered Smart Education Platform
-          </motion.div>
-
-          <motion.h1
-            initial="hidden" animate="visible" custom={1} variants={fadeUp}
-            className="max-w-4xl text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl leading-[1.1]"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
-          >
-            Ace Your Exams with
-            <br />
-            <span className="bg-gradient-to-r from-primary via-blue-600 to-indigo-700 bg-clip-text text-transparent">
-              AI-Verified Knowledge.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial="hidden" animate="visible" custom={2} variants={fadeUp}
-            className="max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed"
-          >
-            SATORN transforms current affairs into a personalized learning experience. 
-            Study from verified sources, take adaptive quizzes, and track your mastery to crack competitive exams.
-          </motion.p>
-
-          <motion.div
-            initial="hidden" animate="visible" custom={3} variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-4 mt-4"
-          >
-            {isAuthenticated ? (
-              <Button size="lg" asChild className="rounded-full px-10 py-6 text-base shadow-xl shadow-primary/25 hover:shadow-primary/40 transition-shadow">
-                <Link to="/learning">
-                  Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            ) : (
-              <>
-                <Button size="lg" asChild className="rounded-full px-10 py-6 text-base shadow-xl shadow-primary/25 hover:shadow-primary/40 transition-shadow">
-                  <Link to="/register">
-                    Start Learning — Free <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="rounded-full px-10 py-6 text-base border-blue-200 hover:bg-blue-50">
-                  <Link to="/learning/feed">
-                    Explore Content <ChevronRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
-              </>
-            )}
-          </motion.div>
-
-          <motion.p
-            initial="hidden" animate="visible" custom={4} variants={fadeUp}
-            className="text-xs text-muted-foreground mt-2"
-          >
-            Ideal for UPSC, SSC, and Banking Aspirants • Trusted Content
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ═══════ SOCIAL PROOF STATS ═══════ */}
-      <section className="relative -mt-8 z-10 px-4">
-        <motion.div
-          initial="hidden" whileInView="visible" viewport={{ once: true }}
-          className="container mx-auto max-w-4xl"
-        >
-          <motion.div
-            custom={0} variants={scaleIn}
-            className="bg-white rounded-3xl shadow-xl shadow-blue-200/30 border border-blue-100 p-8 sm:p-10"
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                { value: '10k+', label: 'Questions Attempted', icon: BrainCircuit },
-                { value: '100+', label: 'Verified Topics', icon: ShieldCheck },
-                { value: '24/7', label: 'AI Tutor Support', icon: GraduationCap },
-              ].map((stat, i) => (
-                <motion.div key={stat.label} custom={i + 1} variants={fadeUp} className="text-center">
-                  <stat.icon className="h-6 w-6 text-primary mx-auto mb-2" />
-                  <p className="text-3xl sm:text-4xl font-extrabold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    {stat.value}
-                  </p>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ═══════ HOW IT WORKS ═══════ */}
-      <section className="px-4 py-24">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
-            className="text-center mb-16"
-          >
-            <motion.span custom={0} variants={fadeUp} className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
-              Your Path to Success
-            </motion.span>
-            <motion.h2
-              custom={1} variants={fadeUp}
-              className="text-3xl sm:text-4xl font-bold tracking-tight mb-4"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
-            >
-              Master Current Affairs in 3 Steps
-            </motion.h2>
-            <motion.p custom={2} variants={fadeUp} className="text-muted-foreground max-w-xl mx-auto text-lg">
-              We streamline your preparation by focusing on what's important and verified.
-            </motion.p>
-          </motion.div>
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-            {[
-              {
-                step: '01',
-                icon: BookOpen,
-                title: 'Learn from Verified Sources',
-                desc: 'Read curated articles that are fact-checked by AI. No more misinformation or biased narratives cluttering your study material.',
-                gradient: 'from-blue-500 to-indigo-500',
-              },
-              {
-                step: '02',
-                icon: Target,
-                title: 'Practice Adaptively',
-                desc: 'Take AI-generated quizzes that adapt to your level. We identify your weak areas and generate questions to help you improve.',
-                gradient: 'from-indigo-500 to-purple-500',
-              },
-              {
-                step: '03',
-                icon: BarChart3,
-                title: 'Track & Master',
-                desc: 'Visualize your progress with our Skills Matrix. See your mastery grow topic by topic and stay exam-ready.',
-                gradient: 'from-purple-500 to-pink-500',
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial="hidden" whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                custom={i}
-                variants={fadeUp}
-                className="group relative bg-white rounded-3xl p-8 border border-blue-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-500"
+    <div className="flex flex-col overflow-hidden bg-white text-foreground">
+      <section className="relative min-h-[86vh] overflow-hidden border-b border-zinc-200 bg-[radial-gradient(circle_at_18%_15%,rgba(14,165,233,0.10),transparent_28%),linear-gradient(135deg,#ffffff_0%,#f8fafc_48%,#fff7ed_100%)]">
+        <div className="container relative mx-auto flex min-h-[86vh] max-w-7xl flex-col justify-center px-6 py-16 lg:py-20">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="max-w-3xl">
+              <MotionDiv
+                initial="hidden"
+                animate="visible"
+                custom={0}
+                className="mb-7 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/85 px-4 py-2 text-sm font-semibold text-zinc-700 shadow-sm backdrop-blur"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg`}>
-                    <item.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <span className="text-5xl font-extrabold text-blue-100 group-hover:text-blue-200 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    {item.step}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold mb-3" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <Signal className="h-4 w-4 text-emerald-600" />
+                Real-time verified news platform
+              </MotionDiv>
 
-      {/* ═══════ FEATURES BENTO GRID ═══════ */}
-      <section className="bg-gradient-to-b from-blue-50/80 to-white px-4 py-24 border-t border-blue-100">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
-            className="text-center mb-16"
-          >
-            <motion.span custom={0} variants={fadeUp} className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
-              Features
-            </motion.span>
-            <motion.h2
-              custom={1} variants={fadeUp}
-              className="text-3xl sm:text-4xl font-bold tracking-tight mb-4"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
-            >
-              Everything you need to stay ahead
-            </motion.h2>
-            <motion.p custom={2} variants={fadeUp} className="text-muted-foreground max-w-xl mx-auto text-lg">
-              From personalized feeds to an AI Tutor — SATORN has you covered.
-            </motion.p>
-          </motion.div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: GraduationCap,
-                title: 'Personalized Profile',
-                desc: 'Set your exam track, target dates, and difficulty levels. SATORN adapts the content to match your goals.',
-                color: 'bg-indigo-50 text-indigo-600',
-              },
-              {
-                icon: BrainCircuit,
-                title: 'AI Tutor',
-                desc: 'Stuck on a concept? Chat with our AI Tutor to get instant explanations and examples related to your syllabus.',
-                color: 'bg-purple-50 text-purple-600',
-              },
-              {
-                icon: Zap,
-                title: 'Knowledge Feed',
-                desc: 'A smart feed of articles prioritized by your weak areas. Stop scrolling aimlessly and start learning.',
-                color: 'bg-yellow-50 text-yellow-600',
-              },
-              {
-                icon: Trophy,
-                title: 'Adaptive Quizzes',
-                desc: 'Quizzes that get harder as you get better. Challenge yourself with fresh questions generated from the latest news.',
-                color: 'bg-orange-50 text-orange-600',
-              },
-              {
-                icon: TrendingUp,
-                title: 'Skill Tracking',
-                desc: 'Visual analytics to show your strong and weak zones. Focus your efforts where they matter most.',
-                color: 'bg-emerald-50 text-emerald-600',
-              },
-              {
-                icon: ShieldCheck,
-                title: 'Verified Content',
-                desc: 'Every piece of information is cross-referenced for accuracy. Build your knowledge on a foundation of truth.',
-                color: 'bg-blue-50 text-blue-600',
-              },
-            ].map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial="hidden" whileInView="visible"
-                viewport={{ once: true, margin: "-30px" }}
-                custom={i}
-                variants={fadeUp}
-                className="bg-white rounded-2xl p-7 border border-blue-100 hover:shadow-lg hover:border-blue-200 transition-all duration-300 group"
-              >
-                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${feature.color} mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {feature.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ FINAL CTA ═══════ */}
-      <section className="px-4 py-24">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }}
-            custom={0} variants={scaleIn}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-blue-600 to-indigo-700 p-12 sm:p-16 text-center text-white shadow-2xl shadow-primary/30"
-          >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32 blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-24 blur-2xl" />
-
-            <div className="relative z-10">
-              <motion.h2
-                custom={1} variants={fadeUp}
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight"
+              <MotionH1
+                initial="hidden"
+                animate="visible"
+                custom={1}
+                className="max-w-4xl text-5xl font-extrabold leading-[1.02] tracking-tight text-zinc-950 sm:text-6xl lg:text-7xl"
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
-                Ready to crack your exam?
-              </motion.h2>
-              <motion.p
-                custom={2} variants={fadeUp}
-                className="text-lg text-white/80 max-w-xl mx-auto mb-10"
+                News as it breaks.
+                <span className="block text-primary">Truth as it updates.</span>
+              </MotionH1>
+
+              <MotionP
+                initial="hidden"
+                animate="visible"
+                custom={2}
+                className="mt-7 max-w-2xl text-lg leading-8 text-zinc-600 sm:text-xl"
               >
-                Join thousands of aspirants who are learning smarter with SATORN.
-              </motion.p>
-              <motion.div custom={3} variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-                {isAuthenticated ? (
-                  <Button size="lg" asChild className="rounded-full px-10 py-6 text-base bg-white text-primary hover:bg-white/90 shadow-xl">
-                    <Link to="/learning">
-                      Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                ) : (
-                  <>
-                    <Button size="lg" asChild className="rounded-full px-10 py-6 text-base bg-white text-primary hover:bg-white/90 shadow-xl">
-                      <Link to="/register">
-                        Create Free Account <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
-                    </Button>
-                    <Button size="lg" variant="outline" asChild className="rounded-full px-10 py-6 text-base border-white/30 text-white hover:text-primary bg-primary">
-                      <Link to="/learning/feed">Explore Feed</Link>
-                    </Button>
-                  </>
-                )}
-              </motion.div>
+                SATORN is moving to a real-time news experience where every story is checked continuously against live sources, claim evidence, and credibility signals before it reaches you.
+              </MotionP>
+
+              <MotionDiv
+                initial="hidden"
+                animate="visible"
+                custom={3}
+                className="mt-9 flex flex-col gap-3 sm:flex-row"
+              >
+                <Button size="lg" asChild className="h-12 rounded-full px-7 text-base shadow-lg shadow-orange-500/20">
+                  <Link to={isAuthenticated ? '/feed' : '/register'}>
+                    {isAuthenticated ? 'Open Live Feed' : 'Start Watching Live News'}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="h-12 rounded-full border-zinc-300 bg-white px-7 text-base hover:bg-zinc-50">
+                  <Link to="/chat">
+                    Verify a Claim
+                    <ChevronRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </Button>
+              </MotionDiv>
             </div>
-          </motion.div>
+
+            <MotionDiv
+              initial="hidden"
+              animate="visible"
+              custom={4}
+              className="relative"
+            >
+              <div className="rounded-[2rem] border border-zinc-200 bg-white p-4 shadow-2xl shadow-zinc-300/40">
+                <div className="rounded-[1.5rem] border border-zinc-100 bg-zinc-950 p-5 text-white">
+                  <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">Live verification room</p>
+                      <h2 className="mt-1 text-xl font-bold">Breaking story monitor</h2>
+                    </div>
+                    <span className="flex items-center gap-2 rounded-full bg-emerald-400/12 px-3 py-1.5 text-xs font-semibold text-emerald-300">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
+                      Live
+                    </span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-sm font-semibold text-white">Policy update reported across national wires</p>
+                          <p className="mt-2 text-sm leading-6 text-zinc-300">Checking official statement, ministry feed, wire copy, and regional coverage.</p>
+                        </div>
+                        <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 text-emerald-300" />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {liveSignals.map((signal) => (
+                        <div key={signal.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3">
+                          <p className="text-[11px] font-medium uppercase tracking-wide text-zinc-400">{signal.label}</p>
+                          <p className={`mt-2 text-sm font-bold ${signal.tone}`}>{signal.value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      {[
+                        ['Primary source detected', 'complete'],
+                        ['Contradiction scan', 'complete'],
+                        ['Context timeline refresh', 'running'],
+                      ].map(([label, status]) => (
+                        <div key={label} className="flex items-center justify-between gap-4">
+                          <span className="text-sm text-zinc-300">{label}</span>
+                          <span className={status === 'complete' ? 'text-emerald-300' : 'text-cyan-300'}>
+                            {status === 'complete' ? <CheckCircle2 className="h-4 w-4" /> : <Activity className="h-4 w-4 animate-pulse" />}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </MotionDiv>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-zinc-200 bg-white px-6 py-10">
+        <div className="container mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
+          {[
+            { value: '24/7', label: 'live news monitoring' },
+            { value: 'Every claim', label: 'checked against source evidence' },
+            { value: 'Real time', label: 'freshness and credibility signals' },
+          ].map((stat, i) => (
+            <MotionDiv
+              key={stat.label}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={i}
+              className="border-l-2 border-primary/30 px-5 py-3"
+            >
+              <p className="text-3xl font-extrabold text-zinc-950" style={{ fontFamily: 'Outfit, sans-serif' }}>{stat.value}</p>
+              <p className="mt-1 text-sm font-medium text-zinc-500">{stat.label}</p>
+            </MotionDiv>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-zinc-50 px-6 py-24">
+        <div className="container mx-auto max-w-6xl">
+          <div className="mb-14 max-w-3xl">
+            <MotionH2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              custom={0}
+              className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-5xl"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              A verification engine built for the speed of news.
+            </MotionH2>
+            <MotionP
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              custom={1}
+              className="mt-5 text-lg leading-8 text-zinc-600"
+            >
+              SATORN does not just summarize headlines. It inspects claims, watches for contradictions, and refreshes trust signals while the story evolves.
+            </MotionP>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {verificationSteps.map((step, i) => (
+              <MotionDiv
+                key={step.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
+                custom={i}
+                className="rounded-2xl border border-zinc-200 bg-white p-7 shadow-sm"
+              >
+                <div className="mb-8 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <step.icon className="h-6 w-6" />
+                  </div>
+                  <span className="text-sm font-bold text-zinc-300">0{i + 1}</span>
+                </div>
+                <h3 className="text-xl font-bold text-zinc-950" style={{ fontFamily: 'Outfit, sans-serif' }}>{step.title}</h3>
+                <p className="mt-3 leading-7 text-zinc-600">{step.desc}</p>
+              </MotionDiv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-6 py-24">
+        <div className="container mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+          <MotionDiv
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            custom={0}
+          >
+            <h2 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-5xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              From noisy feeds to verified signals.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-zinc-600">
+              The new SATORN experience focuses on real-time discovery, source transparency, and claim-level verification so you can move fast without trusting blind.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild className="rounded-full px-6">
+                <Link to="/feed">
+                  Browse Feed <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" asChild className="rounded-full border-zinc-300 px-6">
+                <Link to="/chat">Open Debunk Tool</Link>
+              </Button>
+            </div>
+          </MotionDiv>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {trustPoints.map((point, i) => (
+              <MotionDiv
+                key={point.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-30px' }}
+                custom={i}
+                className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg hover:shadow-zinc-200/70"
+              >
+                <point.icon className="mb-5 h-7 w-7 text-primary" />
+                <h3 className="text-lg font-bold text-zinc-950" style={{ fontFamily: 'Outfit, sans-serif' }}>{point.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">{point.desc}</p>
+              </MotionDiv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-24">
+        <div className="container mx-auto max-w-5xl">
+          <MotionDiv
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0}
+            className="relative overflow-hidden rounded-[2rem] bg-zinc-950 p-8 text-white shadow-2xl shadow-zinc-300/60 sm:p-12"
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-cyan-400 to-emerald-400" />
+            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cyan-300">
+                  <Zap className="h-6 w-6" />
+                </div>
+                <h2 className="text-3xl font-extrabold tracking-tight sm:text-5xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  Follow the news in real time. Keep the proof in view.
+                </h2>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+                  Start with the live feed, then use Debunk whenever a claim needs a closer look.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                <Button size="lg" asChild className="h-12 rounded-full bg-white px-7 text-base text-zinc-950 hover:bg-zinc-100">
+                  <Link to={isAuthenticated ? '/feed' : '/register'}>
+                    {isAuthenticated ? 'Open Live Feed' : 'Create Account'}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="h-12 rounded-full border-white/20 bg-transparent px-7 text-base text-white hover:bg-white/10 hover:text-white">
+                  <Link to="/chat">
+                    Verify Claim
+                    <Sparkles className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </MotionDiv>
         </div>
       </section>
     </div>

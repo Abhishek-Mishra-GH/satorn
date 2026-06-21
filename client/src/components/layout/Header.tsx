@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Newspaper, ShieldAlert, User, Bookmark, School } from 'lucide-react';
+import { LogOut, LayoutDashboard, Newspaper, ShieldAlert, User, Bookmark } from 'lucide-react';
 import { useAuthStore } from '@/shared/store/authStore';
 import { Button } from '@/components/ui/button';
 
@@ -26,11 +26,10 @@ export const Header = () => {
 
         {/* Center: Main nav links */}
         <nav className="hidden md:flex flex-1 items-center justify-center gap-1">
-          <Button variant="ghost" size="sm" asChild className="rounded-full">
-            <Link to="/learning">
-               <School className="mr-2 h-4 w-4" /> Learning
-            </Link>
-          </Button>
+          {/* Temporarily hidden while SATORN focuses on real-time verified news. */}
+          {/* <Button variant="ghost" size="sm" asChild className="rounded-full">
+            <Link to="/learning">Learning</Link>
+          </Button> */}
           <Button variant="ghost" size="sm" asChild className="rounded-full">
             <Link to="/feed">
               <Newspaper className="mr-2 h-4 w-4" /> Feed
